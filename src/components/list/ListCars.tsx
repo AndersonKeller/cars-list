@@ -1,11 +1,18 @@
 "use client";
 import { cars } from "@/service/data";
 import { Cars } from "@/types/CarInterfaces";
+import { parseCookies, setCookie } from "nookies";
 import { InfosCar } from "./InfosCar";
 export function ListCars() {
-  const local = window.localStorage.getItem("@cars-list");
-  const list: Cars[] = local ? JSON.parse(local) : cars;
-  localStorage.setItem("@cars-list", JSON.stringify(list));
+  const cookies = parseCookies();
+
+  const list: Cars[] = cookies["@cars-list"]
+    ? JSON.parse(cookies["@cars-list"])
+    : cars;
+  setCookie(null, "@cars-list", JSON.stringify(list), {
+    maxAge: 30 * 24 * 60 * 60,
+    path: "/",
+  });
 
   return (
     <ul className="w-11/12 m-auto flex flex-col gap-3 items-center">
