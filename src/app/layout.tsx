@@ -1,9 +1,9 @@
 import { Header } from "@/components/header/Header";
 import type { Metadata } from "next";
-import { Gabarito } from "next/font/google";
+import { Roboto } from "next/font/google";
 import "./globals.css";
 
-const gabarito = Gabarito({ subsets: ["latin"] });
+const gabarito = Roboto({ subsets: ["latin"], weight: "500" });
 
 export const metadata: Metadata = {
   title: "Cars list",
