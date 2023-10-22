@@ -1,6 +1,6 @@
 import { Cars } from "@/types/CarInterfaces";
 
-export const cars: Cars[] = [
+export const carsData: Cars[] = [
   {
     id: 1,
     timestamp_cadastro: 1696539488,

@@ -1,5 +1,7 @@
 "use client";
 import { Input } from "@/components/input/Input";
+import { carListStore } from "@/store/store";
+import { Cars } from "@/types/CarInterfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { RegisterData, iCombustivel, registerSchema } from "./schema";
@@ -12,12 +14,24 @@ export default function RegisterPage() {
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
   });
-
+  const { cars, setCars } = carListStore();
   function onFormRegister(data: RegisterData) {
     console.log(data);
+    const newCar: Cars = {
+      ...data,
+      modelo_id: 13,
+      id: 5,
+      timestamp_cadastro: 234,
+      ano: parseInt(data.ano),
+      num_portas: parseInt(data.num_portas),
+      valor: parseInt(data.valor),
+    };
+    console.log(newCar);
+    setCars([...cars, newCar]);
   }
+  console.log(cars);
   return (
-    <main className="py-6">
+    <main className="py-6 max-w-lg m-auto">
       <form
         noValidate
         onSubmit={handleSubmit(onFormRegister)}
@@ -32,6 +46,7 @@ export default function RegisterPage() {
         <Input
           register={register("ano")}
           label="Ano"
+          type="number"
           placeholder="ano do veículo..."
           errorMsg={errors.ano && errors.ano.message}
         />
