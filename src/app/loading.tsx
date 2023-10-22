@@ -1,6 +1,6 @@
 export default function Loading() {
   return (
-    <ul className="flex flex-col gap-3 w-11/12 m-auto">
+    <ul className="flex flex-col max-w-lg gap-3 w-11/12 m-auto">
       <li className="bg-gray-300 rounded-md h-[150px] w-full shadow-lg animate-pulse"></li>
       <li className="bg-gray-300 rounded-md h-[150px] w-full shadow-lg animate-pulse "></li>
       <li className="bg-gray-300 rounded-md h-[150px] w-full shadow-lg animate-pulse "></li>

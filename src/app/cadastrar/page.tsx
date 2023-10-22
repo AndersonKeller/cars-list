@@ -1,12 +1,15 @@
 "use client";
 import { Input } from "@/components/input/Input";
+import { Modal } from "@/components/modal/Modal";
 import { brandListStore, carListStore, modelsListStore } from "@/store/store";
 import { Cars } from "@/types/CarInterfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { RegisterData, iCombustivel, registerSchema } from "./schema";
 
 export default function RegisterPage() {
+  const [openModal, setOpenModal] = useState(false);
   const {
     register,
     handleSubmit,
@@ -39,9 +42,7 @@ export default function RegisterPage() {
     if (!findBrand) {
       setBrands([...brands, data.marca.toUpperCase()]);
     }
-    const findIndexModel = models.findIndex((model) => {
-      return model.model.toUpperCase() == data.nome_modelo.toUpperCase();
-    });
+
     const findIndexBrand = brands.findIndex((brand) => {
       return brand.toUpperCase() == data.marca.toUpperCase();
     });
@@ -58,14 +59,17 @@ export default function RegisterPage() {
     };
 
     setCars([...cars, newCar]);
+    setOpenModal(true);
   }
-
+  function closeModal() {
+    setOpenModal(false);
+  }
   return (
     <main className="py-6 max-w-lg m-auto">
       <form
         noValidate
         onSubmit={handleSubmit(onFormRegister)}
-        className="gap-3 w-11/12 m-auto bg-gray-200 flex items-center flex-col p-4 rounded-lg"
+        className="gap-2 w-11/12 m-auto bg-gray-200 flex items-center flex-col p-4 rounded-lg"
       >
         <Input
           register={register("marca")}
@@ -87,7 +91,7 @@ export default function RegisterPage() {
               Combustível
             </label>
             <select
-              className="w-full h-9 rounded-md"
+              className="w-full h-9 rounded-md outline-1 outline-blue-100 ps-2"
               {...register("combustivel")}
               name="combustivel"
               id="combustivel"
@@ -133,11 +137,12 @@ export default function RegisterPage() {
         />
         <button
           type="submit"
-          className="bg-blue-500 text-gray-200 font-bold uppercase border-none py-2 px-4 rounded-xl"
+          className="bg-blue-500 mt-2 text-gray-200 font-bold uppercase border-none py-2 px-4 rounded-xl"
         >
           Confirmar
         </button>
       </form>
+      {openModal && <Modal action={closeModal} />}
     </main>
   );
 }
