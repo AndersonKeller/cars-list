@@ -12,7 +12,7 @@ export function ListCars() {
     setList(cars);
   }, []);
   return list.length > 0 ? (
-    <ul className="w-11/12 max-w-2xl m-auto flex flex-wrap gap-3 items-center">
+    <ul className="w-11/12 max-w-3xl m-auto flex flex-wrap justify-center gap-3 items-center">
       {list.map((car: Cars) => (
         <InfosCar key={car.id} car={car} />
       ))}
