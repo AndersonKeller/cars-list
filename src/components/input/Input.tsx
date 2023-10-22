@@ -19,12 +19,14 @@ export function Input({
       </label>
       <input
         id={label}
-        className="ps-3 h-7 rounded-md outline-blue-100 w-full"
+        className="ps-3 h-9 rounded-md outline-blue-100 w-full "
         type={type ? type : "text"}
         placeholder={placeholder}
         {...register}
       />
-      {errorMsg && <span>{errorMsg}</span>}
+      {errorMsg && (
+        <span className="text-red-500 font-bold self-start">{errorMsg}</span>
+      )}
     </>
   );
 }

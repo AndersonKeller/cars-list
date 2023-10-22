@@ -13,6 +13,9 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
+    defaultValues: {
+      num_portas: "2",
+    },
   });
   const { cars, setCars } = carListStore();
   const { brands, setBrands } = brandListStore();
@@ -67,33 +70,48 @@ export default function RegisterPage() {
         <Input
           register={register("marca")}
           label="Marca"
-          placeholder="Marca..."
+          placeholder="EX: TOYOTA"
           errorMsg={errors.marca && errors.marca.message}
         />
         <Input
           register={register("ano")}
           label="Ano"
           type="number"
-          placeholder="ano do veículo..."
+          placeholder="EX: 2020"
           errorMsg={errors.ano && errors.ano.message}
         />
 
-        <select {...register("combustivel")} name="combustivel" id="">
-          <option value="">Selecione</option>
-          {iCombustivel.map((item, index) => (
-            <option key={index} value={item}>
-              {item}
-            </option>
-          ))}
-        </select>
+        <div className="w-full flex flex-col gap-3 min-[368px]:flex-row">
+          <div className="w-full min-[368px]:w-1/2 flex flex-col gap-3">
+            <label className="self-start" htmlFor="combustivel">
+              Combustível
+            </label>
+            <select
+              className="w-full h-9 rounded-md"
+              {...register("combustivel")}
+              name="combustivel"
+              id="combustivel"
+            >
+              <option value="">Selecione</option>
+              {iCombustivel.map((item, index) => (
+                <option key={index} value={item}>
+                  {item}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <Input
-          label="portas"
-          placeholder="2"
-          register={register("num_portas")}
-          errorMsg={errors.num_portas && errors.num_portas.message}
-          type="number"
-        />
+          <div className="w-full min-[368px]:w-1/2 flex flex-col gap-3">
+            {" "}
+            <Input
+              label="Portas"
+              placeholder="2"
+              register={register("num_portas")}
+              errorMsg={errors.num_portas && errors.num_portas.message}
+              type="number"
+            />
+          </div>
+        </div>
         <Input
           label="Modelo"
           placeholder="Ex: Hilux"
