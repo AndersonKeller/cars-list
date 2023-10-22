@@ -1,19 +1,23 @@
 "use client";
+import Loading from "@/app/loading";
 import { carListStore } from "@/store/store";
 import { Cars } from "@/types/CarInterfaces";
-import { parseCookies } from "nookies";
+import { useEffect, useState } from "react";
 import { InfosCar } from "./InfosCar";
 export function ListCars() {
+  const [list, setList] = useState([] as Cars[]);
   const { cars } = carListStore();
-  const cookies = parseCookies();
 
-  const list = cookies["@cars-list"] ? JSON.parse(cookies["@cars-list"]) : cars;
-
+  useEffect(() => {
+    setList(cars);
+  }, []);
   return (
     <ul className="w-11/12 max-w-lg m-auto flex flex-col gap-3 items-center">
-      {list.map((car: Cars) => (
-        <InfosCar key={car.id} car={car} />
-      ))}
+      {list.length > 0 ? (
+        list.map((car: Cars) => <InfosCar key={car.id} car={car} />)
+      ) : (
+        <Loading />
+      )}
     </ul>
   );
 }

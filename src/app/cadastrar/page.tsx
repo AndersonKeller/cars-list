@@ -16,12 +16,14 @@ export default function RegisterPage() {
   });
   const { cars, setCars } = carListStore();
   function onFormRegister(data: RegisterData) {
-    console.log(data);
+    console.log(cars);
+    const timestamp = new Date().getTime();
+
     const newCar: Cars = {
       ...data,
       modelo_id: 13,
-      id: 5,
-      timestamp_cadastro: 234,
+      id: cars[cars.length - 1].id + 1,
+      timestamp_cadastro: timestamp,
       ano: parseInt(data.ano),
       num_portas: parseInt(data.num_portas),
       valor: parseInt(data.valor),
