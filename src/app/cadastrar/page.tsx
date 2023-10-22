@@ -1,6 +1,6 @@
 "use client";
 import { Input } from "@/components/input/Input";
-import { carListStore } from "@/store/store";
+import { brandListStore, carListStore, modelsListStore } from "@/store/store";
 import { Cars } from "@/types/CarInterfaces";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -15,23 +15,48 @@ export default function RegisterPage() {
     resolver: zodResolver(registerSchema),
   });
   const { cars, setCars } = carListStore();
-  function onFormRegister(data: RegisterData) {
-    console.log(cars);
+  const { brands, setBrands } = brandListStore();
+  const { models, setModels } = modelsListStore();
+  async function onFormRegister(data: RegisterData) {
     const timestamp = new Date().getTime();
+
+    const findBrand = brands.find((brand) => brand == data.marca.toUpperCase());
+    const findModel = models.find(
+      (model) => model.model == data.nome_modelo.toUpperCase()
+    );
+    if (!findModel) {
+      setModels([
+        ...models,
+        {
+          model: data.nome_modelo.toUpperCase(),
+          id: models[models.length - 1].id + 1,
+        },
+      ]);
+    }
+    if (!findBrand) {
+      setBrands([...brands, data.marca.toUpperCase()]);
+    }
+    const findIndexModel = models.findIndex((model) => {
+      return model.model.toUpperCase() == data.nome_modelo.toUpperCase();
+    });
+    const findIndexBrand = brands.findIndex((brand) => {
+      return brand.toUpperCase() == data.marca.toUpperCase();
+    });
 
     const newCar: Cars = {
       ...data,
-      modelo_id: 13,
+      modelo_id: findModel ? findModel.id : models[models.length - 1].id + 1,
       id: cars[cars.length - 1].id + 1,
       timestamp_cadastro: timestamp,
       ano: parseInt(data.ano),
       num_portas: parseInt(data.num_portas),
       valor: parseInt(data.valor),
+      brand: findBrand ? findIndexBrand + 1 : brands.length + 1,
     };
-    console.log(newCar);
+
     setCars([...cars, newCar]);
   }
-  console.log(cars);
+
   return (
     <main className="py-6 max-w-lg m-auto">
       <form

@@ -13,6 +13,7 @@ export const returnRegisterSchema = registerSchema.extend({
   id: z.number(),
   timestamp_cadastro: z.number(),
   modelo_id: z.number(),
+  brand: z.number(),
 });
 export type RegisterData = z.infer<typeof registerSchema>;
 export type ReturnCarData = z.infer<typeof returnRegisterSchema>;
