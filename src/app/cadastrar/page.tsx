@@ -69,7 +69,7 @@ export default function RegisterPage() {
       <form
         noValidate
         onSubmit={handleSubmit(onFormRegister)}
-        className="gap-2 w-11/12 m-auto bg-gray-200 flex items-center flex-col p-4 rounded-lg"
+        className="gap-2 w-11/12 m-auto bg-gray-300 flex items-center flex-col p-4 rounded-lg"
       >
         <Input
           register={register("marca")}

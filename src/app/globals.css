@@ -28,6 +28,6 @@ li {
   list-style: none;
 }
 body {
-  height: 100vh;
   font-size: 12px;
+  background-color: #a4a4ab;
 }

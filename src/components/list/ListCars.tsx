@@ -11,13 +11,13 @@ export function ListCars() {
   useEffect(() => {
     setList(cars);
   }, []);
-  return (
-    <ul className="w-11/12 max-w-lg m-auto flex flex-col gap-3 items-center">
-      {list.length > 0 ? (
-        list.map((car: Cars) => <InfosCar key={car.id} car={car} />)
-      ) : (
-        <Loading />
-      )}
+  return list.length > 0 ? (
+    <ul className="w-11/12 max-w-2xl m-auto flex flex-wrap gap-3 items-center">
+      {list.map((car: Cars) => (
+        <InfosCar key={car.id} car={car} />
+      ))}
     </ul>
+  ) : (
+    <Loading />
   );
 }
