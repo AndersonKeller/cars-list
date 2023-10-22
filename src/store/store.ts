@@ -16,6 +16,10 @@ interface ModelsStore {
   models: Models[];
   setModels: (model: Models[]) => void;
 }
+interface FIlterStore {
+  filteredCars: Cars[];
+  setFilter: (cars: Cars[]) => void;
+}
 const cookies = parseCookies();
 export const carListStore = create<CarsStore>()((set) => ({
   cars: cookies["@cars-list"]
@@ -61,4 +65,8 @@ export const modelsListStore = create<ModelsStore>()((set) => ({
         { models: newModels }
       )
     ),
+}));
+export const filterCarsStore = create<FIlterStore>()((set) => ({
+  filteredCars: [] as Cars[],
+  setFilter: (filterCars: Cars[]) => set(() => ({ filteredCars: filterCars })),
 }));

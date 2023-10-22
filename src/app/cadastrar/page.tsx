@@ -19,6 +19,7 @@ export default function RegisterPage() {
     defaultValues: {
       num_portas: "2",
     },
+    mode: "onBlur",
   });
   const { cars, setCars } = carListStore();
   const { brands, setBrands } = brandListStore();
@@ -48,12 +49,14 @@ export default function RegisterPage() {
     });
 
     const newCar: Cars = {
-      ...data,
+      combustivel: data.combustivel,
+      cor: data.cor,
+      nome_modelo: data.nome_modelo,
       modelo_id: findModel ? findModel.id : models[models.length - 1].id + 1,
       id: cars[cars.length - 1].id + 1,
       timestamp_cadastro: timestamp,
       ano: parseInt(data.ano),
-      num_portas: parseInt(data.num_portas),
+      num_portas: parseInt(data.num_portas) > 0 ? parseInt(data.num_portas) : 2,
       valor: parseInt(data.valor),
       brand: findBrand ? findIndexBrand + 1 : brands.length + 1,
     };
@@ -83,6 +86,7 @@ export default function RegisterPage() {
           type="number"
           placeholder="EX: 2020"
           errorMsg={errors.ano && errors.ano.message}
+          maxlength={4}
         />
 
         <div className="w-full flex flex-col gap-3 min-[368px]:flex-row">

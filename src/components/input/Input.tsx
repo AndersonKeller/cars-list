@@ -4,6 +4,7 @@ interface Inputprops {
   register: {};
   errorMsg?: string;
   type?: string;
+  maxlength?: number;
 }
 export function Input({
   label,
@@ -11,6 +12,7 @@ export function Input({
   register,
   errorMsg,
   type,
+  maxlength,
 }: Inputprops) {
   return (
     <>
@@ -22,6 +24,7 @@ export function Input({
         className="uppercase ps-3 h-9 rounded-md outline-blue-100 w-full "
         type={type ? type : "text"}
         placeholder={placeholder}
+        maxLength={maxlength ? maxlength : undefined}
         {...register}
       />
       {errorMsg && (
