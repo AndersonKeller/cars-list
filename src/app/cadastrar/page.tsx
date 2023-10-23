@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { RegisterData, iCombustivel, registerSchema } from "./schema";
 
 export default function RegisterPage() {
-  const [openModal, setOpenModal] = useState(false);
+  const [openModal, setOpenModal] = useState(true);
   const {
     register,
     handleSubmit,

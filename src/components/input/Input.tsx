@@ -27,7 +27,7 @@ export function Input({
       <input
         ref={inputRef.current}
         id={label}
-        className=" uppercase pe-3 ps-3 h-9 rounded-md outline-blue-100 w-full text-right "
+        className=" uppercase pe-3 ps-3 h-9 rounded-md outline-blue-100 w-full text-right appearance-none"
         placeholder={placeholder}
         maxLength={maxLength}
         type={type ? type : "text"}

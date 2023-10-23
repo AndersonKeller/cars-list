@@ -31,3 +31,8 @@ body {
   font-size: 12px;
   background-color: #a4a4ab;
 }
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
