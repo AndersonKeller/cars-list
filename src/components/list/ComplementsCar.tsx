@@ -5,7 +5,7 @@ interface ComplementsCarProps {
 }
 export function ComplementsCar({ car }: ComplementsCarProps) {
   return (
-    <div className="flex text-[12px] flex-col items-end gap-2 justify-start w-max">
+    <div className="flex min-w-[48%] text-[12px] flex-col items-end gap-2 justify-start w-max">
       <span className="bg-blue-400 rounded-md p-1 text-gray-200">
         {car.combustivel}
       </span>

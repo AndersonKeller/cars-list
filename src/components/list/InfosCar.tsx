@@ -6,7 +6,7 @@ interface InfosCarProps {
 }
 export function InfosCar({ car }: InfosCarProps) {
   const { brands } = brandListStore();
-  console.log(brands[car.brand - 1]);
+
   const brandName = brands[car.brand - 1];
   return (
     <>
@@ -14,10 +14,10 @@ export function InfosCar({ car }: InfosCarProps) {
         <h3 className="font-bold w-full text-[12px] text-blue-200 bg-gray-100 px-4 rounded-md shadow-md">
           {car.nome_modelo.toUpperCase()}
         </h3>
-        <div className="w-1/2 flex flex-col items-start gap-2 ">
+        <div className="w-[48%] flex flex-col items-start gap-2 ">
           <p className="text-indigo-500">{brandName}</p>
           <p className="text-gray-400">{car.ano}</p>
-          <p className="text-gray-400">R$ {car.valor}</p>
+          <p className="text-gray-400">R$ {car.valor.toFixed(2)}</p>
         </div>
         <ComplementsCar car={car} />
       </li>

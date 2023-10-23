@@ -17,7 +17,7 @@ export default function RegisterPage() {
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
     defaultValues: {
-      num_portas: "2",
+      num_portas: 2,
     },
     mode: "onBlur",
   });
@@ -55,9 +55,9 @@ export default function RegisterPage() {
       modelo_id: findModel ? findModel.id : models[models.length - 1].id + 1,
       id: cars[cars.length - 1].id + 1,
       timestamp_cadastro: timestamp,
-      ano: parseInt(data.ano),
-      num_portas: parseInt(data.num_portas) > 0 ? parseInt(data.num_portas) : 2,
-      valor: parseInt(data.valor),
+      ano: data.ano,
+      num_portas: data.num_portas,
+      valor: parseFloat(data.valor),
       brand: findBrand ? findIndexBrand + 1 : brands.length + 1,
     };
 
@@ -67,6 +67,7 @@ export default function RegisterPage() {
   function closeModal() {
     setOpenModal(false);
   }
+
   return (
     <main className="py-6 max-w-lg m-auto">
       <form
@@ -83,10 +84,9 @@ export default function RegisterPage() {
         <Input
           register={register("ano")}
           label="Ano"
-          type="number"
           placeholder="EX: 2020"
+          mask="9999"
           errorMsg={errors.ano && errors.ano.message}
-          maxlength={4}
         />
 
         <div className="w-full flex flex-col gap-3 min-[368px]:flex-row">
@@ -114,9 +114,9 @@ export default function RegisterPage() {
             <Input
               label="Portas"
               placeholder="2"
+              mask="9"
               register={register("num_portas")}
               errorMsg={errors.num_portas && errors.num_portas.message}
-              type="number"
             />
           </div>
         </div>
@@ -137,7 +137,7 @@ export default function RegisterPage() {
           placeholder="EX: 50.000"
           register={register("valor")}
           errorMsg={errors.valor && errors.valor.message}
-          type="number"
+          mask="999999"
         />
         <button
           type="submit"

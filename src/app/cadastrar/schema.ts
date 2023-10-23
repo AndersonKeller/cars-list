@@ -5,9 +5,27 @@ export const registerSchema = z.object({
     .string()
     .min(1, "você deve informar a marca")
     .max(12, "tamanho máximo de 12 caracteres"),
-  ano: z.string().min(4, "você deve informar o ano").max(4, "formato inválido"),
+  ano: z
+    .string()
+    .min(4, "formato inválido")
+    .max(4, "formato inválido")
+    .transform((val) => parseInt(val))
+    .pipe(
+      z
+        .number()
+        .lt(2024, "ano inválido, você nãp pode inserir anos futuros")
+        .gt(
+          1886,
+          "ano inválido, o primeiro carro patenteado no mundo foi em 1886"
+        )
+    ),
   combustivel: z.enum(iCombustivel),
-  num_portas: z.string().max(1, "insira um valor entre 1 e 9").default("2"),
+  num_portas: z
+    .string()
+    .max(1, "insira um valor entre 1 e 9")
+    .default("2")
+    .transform((val) => parseInt(val))
+    .pipe(z.number().gt(0, "insira um valor entre 1 e 9")),
 
   cor: z
     .string()
