@@ -70,6 +70,9 @@ export default function RegisterPage() {
 
   return (
     <main className="py-6 max-w-lg m-auto">
+      <h2 className="w-full text-center text-gray-900 font-bold uppercase mb-2">
+        Aqui você pode cadastrar um novo carro
+      </h2>
       <form
         noValidate
         onSubmit={handleSubmit(onFormRegister)}
@@ -86,13 +89,15 @@ export default function RegisterPage() {
           label="Ano"
           placeholder="EX: 2020"
           mask="9999"
+          maxLength={4}
           errorMsg={errors.ano && errors.ano.message}
+          type="number"
         />
 
         <div className="w-full flex flex-col gap-3 min-[368px]:flex-row">
           <div className="w-full min-[368px]:w-1/2 flex flex-col gap-3">
             <label className="self-start" htmlFor="combustivel">
-              Combustível
+              Combustível <span className="text-red-600 font-bold">*</span>
             </label>
             <select
               className="w-full h-9 rounded-md outline-1 outline-blue-100 ps-2"
@@ -115,6 +120,7 @@ export default function RegisterPage() {
               label="Portas"
               placeholder="2"
               mask="9"
+              maxLength={1}
               register={register("num_portas")}
               errorMsg={errors.num_portas && errors.num_portas.message}
             />
@@ -138,6 +144,7 @@ export default function RegisterPage() {
           register={register("valor")}
           errorMsg={errors.valor && errors.valor.message}
           mask="999999"
+          type="number"
         />
         <button
           type="submit"

@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import InputMask from "react-input-mask";
 interface Inputprops {
   label: string;
   placeholder: string;
@@ -7,6 +6,7 @@ interface Inputprops {
   errorMsg?: string;
   type?: string;
   mask?: string;
+  maxLength?: number;
 }
 export function Input({
   label,
@@ -15,23 +15,22 @@ export function Input({
   errorMsg,
   type,
   mask,
+  maxLength,
 }: Inputprops) {
-  const inputRef = useRef(null);
+  const inputRef = useRef("");
 
   return mask ? (
     <>
       <label className="self-start" htmlFor={label}>
-        {label}
+        {label} <span className="text-red-600 font-bold">*</span>
       </label>
-      <InputMask
-        alwaysShowMask={false}
-        mask={mask}
+      <input
         ref={inputRef.current}
         id={label}
-        maskChar={null}
-        className="uppercase pe-3 ps-3 h-9 rounded-md outline-blue-100 w-full text-right "
-        type={type ? type : "text"}
+        className=" uppercase pe-3 ps-3 h-9 rounded-md outline-blue-100 w-full text-right "
         placeholder={placeholder}
+        maxLength={maxLength}
+        type={type ? type : "text"}
         {...register}
       />
       {errorMsg && (
@@ -41,10 +40,9 @@ export function Input({
   ) : (
     <>
       <label className="self-start" htmlFor={label}>
-        {label}
+        {label} <span className="text-red-600 font-bold">*</span>
       </label>
       <input
-        ref={inputRef.current}
         id={label}
         className="uppercase ps-3 h-9 rounded-md outline-blue-100 w-full"
         type={type ? type : "text"}

@@ -8,13 +8,18 @@ export function Filters() {
   const { cars } = carListStore();
   const { setFilter } = filterCarsStore();
   function getByBrand(brand: string) {
-    const findIndexBrand = brandList.findIndex(
-      (item) => item.toUpperCase() == brand.toUpperCase()
-    );
+    if (brand == "todos") {
+      setFilter([]);
+    } else {
+      const findIndexBrand = brandList.findIndex(
+        (item) => item.toUpperCase() == brand.toUpperCase()
+      );
 
-    const filtered = cars.filter((car) => car.brand == findIndexBrand + 1);
+      const filtered = cars.filter((car) => car.brand == findIndexBrand + 1);
 
-    setFilter(filtered);
+      setFilter(filtered);
+    }
+    scroll({ top: 0 });
   }
   useEffect(() => {
     setBrandList(brands);
@@ -22,7 +27,7 @@ export function Filters() {
   return (
     <div className="flex gap-2 items-center justify-start overflow-auto sm:flex-col sm:max-h-none">
       <button
-        onClick={() => setFilter([])}
+        onClick={() => getByBrand("todos")}
         className="focus:bg-blue-700 focus:text-gray-300 hover:bg-blue-800 hover:text-gray-300 shadow-md bg-blue-400 px-1 rounded-md"
       >
         TODOS
