@@ -16,10 +16,8 @@ export default function RegisterPage() {
     formState: { errors },
   } = useForm<RegisterData>({
     resolver: zodResolver(registerSchema),
-    defaultValues: {
-      num_portas: 2,
-    },
-    mode: "onBlur",
+
+    mode: "onChange",
   });
   const { cars, setCars } = carListStore();
   const { brands, setBrands } = brandListStore();
@@ -57,7 +55,7 @@ export default function RegisterPage() {
       timestamp_cadastro: timestamp,
       ano: data.ano,
       num_portas: data.num_portas,
-      valor: parseFloat(data.valor),
+      valor: parseFloat(data.valor.replaceAll(".", "")),
       brand: findBrand ? findIndexBrand + 1 : brands.length + 1,
     };
 
@@ -91,7 +89,6 @@ export default function RegisterPage() {
           mask="9999"
           maxLength={4}
           errorMsg={errors.ano && errors.ano.message}
-          type="number"
         />
 
         <div className="w-full flex flex-col gap-3 min-[368px]:flex-row">
@@ -118,7 +115,7 @@ export default function RegisterPage() {
             {" "}
             <Input
               label="Portas"
-              placeholder="2"
+              placeholder="EX: 2"
               mask="9"
               maxLength={1}
               register={register("num_portas")}

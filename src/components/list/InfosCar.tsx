@@ -17,7 +17,9 @@ export function InfosCar({ car }: InfosCarProps) {
         <div className="w-[48%] flex flex-col items-start gap-2 ">
           <p className="text-indigo-500">{brandName}</p>
           <p className="text-gray-400">{car.ano}</p>
-          <p className="text-gray-400">R$ {car.valor.toFixed(2)}</p>
+          <p className="text-gray-400">
+            R$ {car.valor.toFixed(2).replaceAll(".", ",")}
+          </p>
         </div>
         <ComplementsCar car={car} />
       </li>

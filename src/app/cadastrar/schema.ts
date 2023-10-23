@@ -13,7 +13,7 @@ export const registerSchema = z.object({
     .pipe(
       z
         .number()
-        .lt(2024, "ano inválido, você nãp pode inserir anos futuros")
+        .lt(2024, "ano inválido, você não pode inserir anos futuros")
         .gt(
           1886,
           "ano inválido, o primeiro carro patenteado no mundo foi em 1886"
@@ -21,9 +21,10 @@ export const registerSchema = z.object({
     ),
   combustivel: z.enum(iCombustivel),
   num_portas: z
-    .string()
+    .string({ invalid_type_error: "insira um valor" })
+    .min(1, "Insira um valor")
     .max(1, "insira um valor entre 1 e 9")
-    .default("2")
+
     .transform((val) => parseInt(val))
     .pipe(z.number().gt(0, "insira um valor entre 1 e 9")),
 

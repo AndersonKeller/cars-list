@@ -22,7 +22,6 @@ export function ListCars() {
   }, [filteredCars]);
   return list.length > 0 ? (
     <>
-      {" "}
       <Aside />
       <ul className="w-11/12 max-w-3xl m-auto flex flex-wrap justify-center gap-3 items-start mb-20">
         <h2 className="w-full text-center text-gray-900 font-bold">
